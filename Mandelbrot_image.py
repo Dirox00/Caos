@@ -35,5 +35,5 @@ def new_mandelbrot(its=50, zoom=200, x_move=-400, y_move=-400, width=800):
 
     img.show()
 
-# new_mandelbrot()
-new_mandelbrot(500, 10000, -1400, -9500)
+new_mandelbrot()
+# new_mandelbrot(500, 10000, -1400, -9500)
