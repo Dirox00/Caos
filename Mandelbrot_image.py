@@ -4,7 +4,7 @@ import math
 
 def it_to_color(it, its):
     r = round(255 * it / its)
-    return r, r, 0
+    return r, 0, r
 
 def in_mandelbrot(x, y, its):
     c = complex(x, y)
