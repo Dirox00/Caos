@@ -4,7 +4,7 @@ import math
 
 def it_to_color(it, its):
     r = round(255 * it / its)
-    return r, 0, r
+    return 0, r, r
 
 def in_mandelbrot(x, y, its):
     c = complex(x, y)
@@ -17,8 +17,8 @@ def in_mandelbrot(x, y, its):
     
     return True, its    
 
-def new_mandelbrot(its=50, zoom=200, x_move=-400, y_move=-400, width=800):
-    img = Image.new('RGB', (width, width))
+def new_mandelbrot(its=50, zoom=200, x_move=-400, y_move=-400, width=800, height=800):
+    img = Image.new('RGB', (width, height))
     pixels = img.load()
 
     for x in range(img.size[0]):
@@ -35,5 +35,6 @@ def new_mandelbrot(its=50, zoom=200, x_move=-400, y_move=-400, width=800):
 
     img.show()
 
-new_mandelbrot()
+# new_mandelbrot()
 # new_mandelbrot(500, 10000, -1400, -9500)
+new_mandelbrot(100, 300, -600, -500, width=1920, height=1080)
