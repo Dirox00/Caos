@@ -1,0 +1,15 @@
+1. En la primera iteracion, con el conjunto completo, calcular solo la mitas de la imagen.
+
+2. Optimizar utilizando que no hay ningún punto de fuera del conjunto que se acabe metiendo.
+
+3. TRaducir el programa a OOP.
+
+4. Comentar y documentar.
+
+5. Cambiar la funcion de color.
+
+6. Implementar moverse por coordenadas o regiones.
+
+7. GUI.
+
+8. Pasarlo a web.
