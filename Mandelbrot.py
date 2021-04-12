@@ -25,7 +25,8 @@ class Mandelbrot:
         new_x_interval = coords[2]*self.region[2]/self.size[0]
         new_y_interval = coords[3]*self.region[3]/self.size[1]
 
-        return (new_x0, new_y0, new_x_interval, new_y_interval)
+        # return (new_x0, new_y0, new_x_interval, new_y_interval)
+        self.region = (new_x0, new_y0, new_x_interval, new_y_interval)
         
     
     def get_color(self, it):
@@ -63,13 +64,14 @@ class Mandelbrot:
                 
 
 mand = Mandelbrot((-2, 2, 4, 4))
-# mand.new_mandelbrot()
+mand.new_mandelbrot()
 
-new = mand.zoom((323, 194, 47, 47))
-print(new)
-m2 = Mandelbrot(new)
+mand.zoom((323, 194, 47, 47))
+mand.new_mandelbrot()
+# print(new)
+# m2 = Mandelbrot(new)
 
-new2 = m2.zoom((375, 103, 40, 40))
-print(new2)
-m3 = Mandelbrot(new2)
-m3.new_mandelbrot()
+# new2 = m2.zoom((375, 103, 40, 40))
+# print(new2)
+# m3 = Mandelbrot(new2)
+# m3.new_mandelbrot()
