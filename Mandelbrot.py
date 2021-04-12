@@ -6,7 +6,7 @@ import time
 
 
 class Mandelbrot:
-    def __init__(self, region):
+    def __init__(self, region):  #region = (-2.25, 1.5, 3, 3) 
         self.its = 50
         self.size = (600, 600)
         self.region = region
@@ -45,7 +45,7 @@ class Mandelbrot:
         
         return True, self.its  
 
-    def new_mandelbrot(self):
+    def new_mandelbrot(self):   #def show(self):
         width, height = self.size
 
         img = Image.new('RGB', self.size)
@@ -62,7 +62,13 @@ class Mandelbrot:
         
         img.show()
                 
-
+"""
+        def reset(self):
+            self.its = 50
+            self.size = (600, 600)
+            self.region = (-2.25, 1.5, 3, 3)
+"""       
+        
 mand = Mandelbrot((-2, 2, 4, 4))
 mand.new_mandelbrot()
 
