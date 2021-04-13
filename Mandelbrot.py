@@ -55,10 +55,8 @@ class Mandelbrot:
                 state, it = self.in_mandelbrot(self.region[0]+x*self.region[2]/width, self.region[1]-y*self.region[3]/height)
                 if state:
                     img.putpixel((x, y), (0, 0, 0))
-                    # pixels[x, y] = (0, 0, 0)
                 else:
                     img.putpixel((x, y), self.get_color(it))
-                    # pixels[x, y] = self.get_color(it)
         
         img.show()
                 
@@ -72,8 +70,11 @@ class Mandelbrot:
 mand = Mandelbrot((-2, 2, 4, 4))
 mand.new_mandelbrot()
 
-mand.zoom((323, 194, 47, 47))
-mand.new_mandelbrot()
+mand.zoom((180, 350, 14, 14))
+# mand.new_mandelbrot()
+
+mand.zoom((450, 147, 29, 29))
+# mand.new_mandelbrot()
 # print(new)
 # m2 = Mandelbrot(new)
 
