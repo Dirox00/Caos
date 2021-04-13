@@ -2,8 +2,7 @@ from PIL import Image, ImageDraw
 
 import math
 
-import time
-
+from matplotlib import colors
 
 class Mandelbrot:
     def __init__(self, region):  #region = (-2.25, 1.5, 3, 3) 
@@ -27,6 +26,11 @@ class Mandelbrot:
 
         # return (new_x0, new_y0, new_x_interval, new_y_interval)
         self.region = (new_x0, new_y0, new_x_interval, new_y_interval)
+    
+    def zoom_point(self, point, scale=40):
+        width = self.size[0] // scale
+        height = self.size[1] // scale
+        return self.zoom((point[0]-width//2, point[1]-height//2, width, height))
         
     
     def get_color(self, it):
@@ -34,16 +38,23 @@ class Mandelbrot:
         
         return 255, r, 0
 
+    def continuous_coloring(self, it, z):
+        v = it - math.log2(math.log(z)/math.log(2))
+
+        return colors.hsv_to_rgb(v)
+
     def in_mandelbrot(self, x, y):
         c = complex(x, y)
         z = 0
+        z_abs = 0
 
         for i in range(self.its):
-            if abs(z) > 2:
-                return False, i
+            z_abs = abs(z)
+            if z_abs > 2:
+                return False, i, z_abs
             z = z**2 + c
         
-        return True, self.its  
+        return True, self.its, z_abs
 
     def new_mandelbrot(self):   #def show(self):
         width, height = self.size
@@ -52,11 +63,12 @@ class Mandelbrot:
 
         for x in range(width):
             for y in range(height):
-                state, it = self.in_mandelbrot(self.region[0]+x*self.region[2]/width, self.region[1]-y*self.region[3]/height)
+                state, it, zi = self.in_mandelbrot(self.region[0]+x*self.region[2]/width, self.region[1]-y*self.region[3]/height)
                 if state:
                     img.putpixel((x, y), (0, 0, 0))
                 else:
-                    img.putpixel((x, y), self.get_color(it))
+                    # img.putpixel((x, y), self.get_color(it))
+                    img.putpixel((x, y), self.continuous_coloring(it, zi))
         
         img.show()
                 
@@ -91,10 +103,10 @@ class Mandelbrot:
 mand = Mandelbrot((-2, 2, 4, 4))
 mand.new_mandelbrot()
 
-mand.zoom((180, 350, 14, 14))
-# mand.new_mandelbrot()
+# mand.zoom((180, 350, 14, 14))
+# # mand.new_mandelbrot()
 
-mand.zoom((450, 147, 29, 29))
+# mand.zoom((450, 147, 29, 29))
 # mand.new_mandelbrot()
 # print(new)
 # m2 = Mandelbrot(new)
@@ -103,3 +115,6 @@ mand.zoom((450, 147, 29, 29))
 # print(new2)
 # m3 = Mandelbrot(new2)
 # m3.new_mandelbrot()
+
+mand.zoom_point((98,290))
+# mand.new_mandelbrot()
