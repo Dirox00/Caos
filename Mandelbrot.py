@@ -33,42 +33,55 @@ class Mandelbrot:
         return self.zoom((point[0]-width//2, point[1]-height//2, width, height))
         
     
-    def get_color(self, it):
+    def get_color_rgb(self, it):
         r = round(255 * it / self.its)
         
         return 255, r, 0
+    
+    
+    def get_color_hsv(self, it):
+        r = round(255 * it / self.its)
+        if it<self.its:
+            value=255
+        else:
+            value=0
+        
+        return r, 255, value    
 
+    """
     def continuous_coloring(self, it, z):
         v = it - math.log2(math.log(z)/math.log(2))
 
         return colors.hsv_to_rgb(v)
-
+    
+    """
+    
     def in_mandelbrot(self, x, y):
         c = complex(x, y)
         z = 0
-        z_abs = 0
+        #z_abs = 0
 
         for i in range(self.its):
-            z_abs = abs(z)
-            if z_abs > 2:
-                return False, i, z_abs
+            #z_abs = abs(z)
+            if abs(z) > 2:
+                return False, i+1-math.log(math.log2(abs(z)))#, z_abs
             z = z**2 + c
         
-        return True, self.its, z_abs
+        return True, self.its, #z_abs
 
     def new_mandelbrot(self):   #def show(self):
         width, height = self.size
 
-        img = Image.new('RGB', self.size)
+        img = Image.new('HSV', self.size)  # Image.new('RGB', self.size)
 
         for x in range(width):
             for y in range(height):
-                state, it, zi = self.in_mandelbrot(self.region[0]+x*self.region[2]/width, self.region[1]-y*self.region[3]/height)
+                state, it = self.in_mandelbrot(self.region[0]+x*self.region[2]/width, self.region[1]-y*self.region[3]/height)   #state, it, zi = ...
                 if state:
                     img.putpixel((x, y), (0, 0, 0))
                 else:
                     # img.putpixel((x, y), self.get_color(it))
-                    img.putpixel((x, y), self.continuous_coloring(it, zi))
+                    img.putpixel((x, y), self.get_color_hsv(it))  #self.continuous_coloring(it, zi)
         
         img.show()
                 
