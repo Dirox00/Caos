@@ -67,6 +67,27 @@ class Mandelbrot:
             self.region = (-2.25, 1.5, 3, 3)
 """       
         
+    
+"""
+        def save(self, name):
+            width, height = self.size
+
+            img = Image.new('RGB', self.size)
+
+            for x in range(width):
+                for y in range(height):
+                    state, it = self.in_mandelbrot(self.region[0]+x*self.region[2]/width, self.region[1]-y*self.region[3]/height)
+                    if state:
+                        img.putpixel((x, y), (0, 0, 0))
+                        # pixels[x, y] = (0, 0, 0)
+                    else:
+                        img.putpixel((x, y), self.get_color(it))
+                        # pixels[x, y] = self.get_color(it)
+        
+        img.save(name+".png")
+"""
+
+
 mand = Mandelbrot((-2, 2, 4, 4))
 mand.new_mandelbrot()
 
