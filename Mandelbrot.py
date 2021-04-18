@@ -64,12 +64,13 @@ class Mandelbrot:
         for i in range(self.its):
             #z_abs = abs(z)
             if abs(z) > 2:
-                return False, i+1-math.log(math.log2(abs(z)))#, z_abs
+                return False, i- math.log2(math.log(abs(z))/math.log(2))
             z = z**2 + c
         
         return True, self.its, #z_abs
 
-    def new_mandelbrot(self):   #def show(self):
+    
+    def show_hsv(self):   #def show(self):
         width, height = self.size
 
         img = Image.new('HSV', self.size)  # Image.new('RGB', self.size)
@@ -84,17 +85,32 @@ class Mandelbrot:
                     img.putpixel((x, y), self.get_color_hsv(it))  #self.continuous_coloring(it, zi)
         
         img.show()
+        
+        
+    def show_rgb(self):   #def show(self):
+        width, height = self.size
+
+        img = Image.new('RGB', self.size)  # Image.new('RGB', self.size)
+
+        for x in range(width):
+            for y in range(height):
+                state, it = self.in_mandelbrot(self.region[0]+x*self.region[2]/width, self.region[1]-y*self.region[3]/height)   #state, it, zi = ...
+                if state:
+                    img.putpixel((x, y), (0, 0, 0))
+                else:
+                    # img.putpixel((x, y), self.get_color(it))
+                    img.putpixel((x, y), self.get_color_rgb(it))  #self.continuous_coloring(it, zi)
+        
+        img.show()
                 
-"""
+
         def reset(self):
             self.its = 50
             self.size = (600, 600)
-            self.region = (-2.25, 1.5, 3, 3)
-"""       
+            self.region = (-2.25, 1.5, 3, 3)       
         
     
-"""
-        def save(self, name):
+        def save_rgb(self, name):
             width, height = self.size
 
             img = Image.new('RGB', self.size)
@@ -106,10 +122,28 @@ class Mandelbrot:
                         img.putpixel((x, y), (0, 0, 0))
                         # pixels[x, y] = (0, 0, 0)
                     else:
-                        img.putpixel((x, y), self.get_color(it))
+                        img.putpixel((x, y), self.get_color_rgb(it))
                         # pixels[x, y] = self.get_color(it)
         
         img.save(name+".png")
+        
+        
+        def save_hsv(self, name):   #da error
+            width, height = self.size
+
+            img = Image.new('RGB', self.size)
+
+            for x in range(width):
+                for y in range(height):
+                    state, it = self.in_mandelbrot(self.region[0]+x*self.region[2]/width, self.region[1]-y*self.region[3]/height)
+                    if state:
+                        img.putpixel((x, y), (0, 0, 0))
+                        # pixels[x, y] = (0, 0, 0)
+                    else:
+                        img.putpixel((x, y), self.get_color_hsv(it))
+                        # pixels[x, y] = self.get_color(it)
+        
+        img.save(name+".png")        
 """
 
 
