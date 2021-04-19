@@ -9,6 +9,8 @@ class Mandelbrot:
         self.its = 50
         self.size = (600, 600)
         self.region = region
+        self.states=[region]
+        self.step=0
         # self.region = (-2, 2, 2, -2)
         # self.coords = (0, 0, 800, 800)
 
@@ -26,6 +28,9 @@ class Mandelbrot:
 
         # return (new_x0, new_y0, new_x_interval, new_y_interval)
         self.region = (new_x0, new_y0, new_x_interval, new_y_interval)
+        self.states.append(self.region)
+        self.step += 1
+        
     
     def zoom_point(self, point, scale=40):
         width = self.size[0] // scale
@@ -33,6 +38,16 @@ class Mandelbrot:
         return self.zoom((point[0]-width//2, point[1]-height//2, width, height))
         
     
+    def step_back(self):
+        self.step -= 1
+        self.region=self.states[self.step]
+        
+
+    def step_forward(self):
+        self.step += 1
+        self.region=self.states[self.step]
+        
+        
     def get_color_rgb(self, it):
         r = round(255 * it / self.its)
         
@@ -107,7 +122,8 @@ class Mandelbrot:
         def reset(self):
             self.its = 50
             self.size = (600, 600)
-            self.region = (-2.25, 1.5, 3, 3)       
+            self.region = (-2.25, 1.5, 3, 3) 
+            self.step=0
         
     
         def save_rgb(self, name):
@@ -128,7 +144,7 @@ class Mandelbrot:
         img.save(name+".png")
         
         
-        def save_hsv(self, name):   #da error
+        def save_hsv(self, name):   
             width, height = self.size
 
             img = Image.new('RGB', self.size)
@@ -143,7 +159,8 @@ class Mandelbrot:
                         img.putpixel((x, y), self.get_color_hsv(it))
                         # pixels[x, y] = self.get_color(it)
         
-        img.save(name+".png")        
+        img_rgb=img.convert("RGB")
+        img_rgb.save(name+".png")        
 """
 
 
