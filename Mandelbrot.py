@@ -5,7 +5,7 @@ import math
 from matplotlib import colors
 
 class Mandelbrot:
-    def __init__(self, region):  #region = (-2.25, 1.5, 3, 3) 
+    def __init__(self, region = (-2.25, 1.5, 3, 3)): 
         self.its = 50
         self.size = (600, 600)
         self.region = region
@@ -61,7 +61,7 @@ class Mandelbrot:
         else:
             value=0
         
-        return r, 255, value    
+        return round((r*1)%255), 255, value    
 
     """
     def continuous_coloring(self, it, z):
@@ -119,48 +119,69 @@ class Mandelbrot:
         img.show()
                 
 
-        def reset(self):
-            self.its = 50
-            self.size = (600, 600)
-            self.region = (-2.25, 1.5, 3, 3) 
-            self.step=0
+    def reset(self):
+        self.its = 50
+        self.size = (600, 600)
+        self.region = (-2.25, 1.5, 3, 3) 
+        self.step=0
         
     
-        def save_rgb(self, name):
-            width, height = self.size
+    def save_rgb(self, name):
+        width, height = self.size
 
-            img = Image.new('RGB', self.size)
+        img = Image.new('RGB', self.size)
 
-            for x in range(width):
-                for y in range(height):
-                    state, it = self.in_mandelbrot(self.region[0]+x*self.region[2]/width, self.region[1]-y*self.region[3]/height)
-                    if state:
-                        img.putpixel((x, y), (0, 0, 0))
-                        # pixels[x, y] = (0, 0, 0)
-                    else:
-                        img.putpixel((x, y), self.get_color_rgb(it))
-                        # pixels[x, y] = self.get_color(it)
+        for x in range(width):
+            for y in range(height):
+                state, it = self.in_mandelbrot(self.region[0]+x*self.region[2]/width, self.region[1]-y*self.region[3]/height)
+                if state:
+                    img.putpixel((x, y), (0, 0, 0))
+                    # pixels[x, y] = (0, 0, 0)
+                else:
+                    img.putpixel((x, y), self.get_color_rgb(it))
+                    # pixels[x, y] = self.get_color(it)
         
         img.save(name+".png")
         
         
-        def save_hsv(self, name):   
-            width, height = self.size
+    def save_hsv(self, name):   
+        width, height = self.size
 
-            img = Image.new('RGB', self.size)
+        img = Image.new('RGB', self.size)
 
-            for x in range(width):
-                for y in range(height):
-                    state, it = self.in_mandelbrot(self.region[0]+x*self.region[2]/width, self.region[1]-y*self.region[3]/height)
-                    if state:
-                        img.putpixel((x, y), (0, 0, 0))
-                        # pixels[x, y] = (0, 0, 0)
-                    else:
-                        img.putpixel((x, y), self.get_color_hsv(it))
-                        # pixels[x, y] = self.get_color(it)
+        for x in range(width):
+            for y in range(height):
+                state, it = self.in_mandelbrot(self.region[0]+x*self.region[2]/width, self.region[1]-y*self.region[3]/height)
+                if state:
+                    img.putpixel((x, y), (0, 0, 0))
+                    # pixels[x, y] = (0, 0, 0)
+                else:
+                    img.putpixel((x, y), self.get_color_hsv(it))
+                    # pixels[x, y] = self.get_color(it)
         
         img_rgb=img.convert("RGB")
-        img_rgb.save(name+".png")        
+        img_rgb.save(name+".png")  
+        
+         
+    def save_state(self, name):
+        saved_state = open(name+".txt", "w")
+        for i in range (4):
+            saved_state.write(str(self.region[i]) + "\n")
+        saved_state.write(str(self.its))
+        saved_state.close()
+       
+
+    def import_state(self, file):
+        state = open(file, "r")
+        coords = []
+        for i in range (4):
+            coords.append(float(state.readline()))
+        self.region = coords
+        self.its=int(state.readline())
+        self.states.append(self.region)
+        self.step += 1
+        state.close()
+        
 """
 
 
