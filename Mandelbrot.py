@@ -172,15 +172,18 @@ class Mandelbrot:
        
 
     def import_state(self, file):
-        state = open(file, "r")
-        coords = []
-        for i in range (4):
-            coords.append(float(state.readline()))
-        self.region = coords
-        self.its=int(state.readline())
-        self.states.append(self.region)
-        self.step += 1
-        state.close()
+        try:
+            state = open(file, "r")
+            coords = []
+            for i in range (4):
+                coords.append(float(state.readline()))
+            self.region = coords
+            self.its=int(state.readline())
+            self.states.append(self.region)
+            self.step += 1
+            state.close()
+        except:
+            return False
         
 """
 
