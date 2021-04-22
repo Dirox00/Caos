@@ -147,7 +147,7 @@ class Mandelbrot:
     def save_hsv(self, name):   
         width, height = self.size
 
-        img = Image.new('RGB', self.size)
+        img = Image.new('HSV', self.size)
 
         for x in range(width):
             for y in range(height):
@@ -202,6 +202,7 @@ mand.new_mandelbrot()
 # new2 = m2.zoom((375, 103, 40, 40))
 # print(new2)
 # m3 = Mandelbrot(new2)
+"""
 # m3.new_mandelbrot()
 
 mand.zoom_point((98,290))
