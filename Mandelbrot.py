@@ -199,10 +199,18 @@ if __name__ == "__main__":
     # print(new)
     # m2 = Mandelbrot(new)
 
+<<<<<<< HEAD
     # new2 = m2.zoom((375, 103, 40, 40))
     # print(new2)
     # m3 = Mandelbrot(new2)
     # m3.new_mandelbrot()
+=======
+# new2 = m2.zoom((375, 103, 40, 40))
+# print(new2)
+# m3 = Mandelbrot(new2)
+"""
+# m3.new_mandelbrot()
+>>>>>>> 034e2b3626d22c192f49c99937700ba37deb3fcf
 
     # mand.zoom_point((98,290))
     # mand.new_mandelbrot()
