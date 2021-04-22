@@ -147,7 +147,7 @@ class Mandelbrot:
     def save_hsv(self, name):   
         width, height = self.size
 
-        img = Image.new('RGB', self.size)
+        img = Image.new('HSV', self.size)
 
         for x in range(width):
             for y in range(height):
@@ -185,24 +185,24 @@ class Mandelbrot:
         except:
             return False
         
-"""
 
+if __name__ == "__main__":
+    mand = Mandelbrot((-2, 2, 4, 4))
+    # mand.show_hsv()
+    mand.save_hsv("try2")
 
-mand = Mandelbrot((-2, 2, 4, 4))
-mand.new_mandelbrot()
+    # mand.zoom((180, 350, 14, 14))
+    # # mand.new_mandelbrot()
 
-# mand.zoom((180, 350, 14, 14))
-# # mand.new_mandelbrot()
+    # mand.zoom((450, 147, 29, 29))
+    # mand.new_mandelbrot()
+    # print(new)
+    # m2 = Mandelbrot(new)
 
-# mand.zoom((450, 147, 29, 29))
-# mand.new_mandelbrot()
-# print(new)
-# m2 = Mandelbrot(new)
+    # new2 = m2.zoom((375, 103, 40, 40))
+    # print(new2)
+    # m3 = Mandelbrot(new2)
+    # m3.new_mandelbrot()
 
-# new2 = m2.zoom((375, 103, 40, 40))
-# print(new2)
-# m3 = Mandelbrot(new2)
-# m3.new_mandelbrot()
-
-mand.zoom_point((98,290))
-# mand.new_mandelbrot()
+    # mand.zoom_point((98,290))
+    # mand.new_mandelbrot()
